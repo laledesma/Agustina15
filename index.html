@@ -816,7 +816,7 @@
 
     <!-- JAVASCRIPT -->
     <script>
-    // PEGA AQUÍ LA PRIMERA URL (APP WEB)
+    // URL DE TU APP WEB DE GOOGLE APPS SCRIPT
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxH8iYpAZnNu1ucVvMlq0X5_Ep3YcCp_ckdVnCXl86yVbvxvgmQe0MDKsw6xM3QZGgn/exec";
 
     function scrollToContent() {
@@ -858,19 +858,21 @@
         const btn = event.target.querySelector('button');
         btn.disabled = true;
 
-        const formData = new FormData();
-        formData.append('sheet', 'Música');
-        formData.append('nombre', document.getElementById('guestNameMusic').value);
-        formData.append('cancion', document.getElementById('songTitle').value);
-        formData.append('artista', document.getElementById('artistName').value);
+        const payload = {
+            sheet: 'Música',
+            nombre: document.getElementById('guestNameMusic').value,
+            cancion: document.getElementById('songTitle').value,
+            artista: document.getElementById('artistName').value
+        };
 
         fetch(SCRIPT_URL, { 
             method: 'POST', 
-            body: formData,
-            mode: 'no-cors'
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(payload)
         })
         .then(() => {
-            showToast("¡Gracias " + document.getElementById('guestNameMusic').value + "! Canción enviada 🎵❄️");
+            showToast("¡Gracias " + payload.nombre + "! Canción enviada 🎵❄️");
             document.getElementById('musicForm').reset();
         })
         .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
@@ -883,18 +885,20 @@
         const btn = event.target.querySelector('button');
         btn.disabled = true;
 
-        const formData = new FormData();
-        formData.append('sheet', 'Asistencia');
-        formData.append('nombre', document.getElementById('rsvpFirstName').value);
-        formData.append('apellido', document.getElementById('rsvpLastName').value);
+        const payload = {
+            sheet: 'Asistencia',
+            nombre: document.getElementById('rsvpFirstName').value,
+            apellido: document.getElementById('rsvpLastName').value
+        };
 
         fetch(SCRIPT_URL, { 
             method: 'POST', 
-            body: formData,
-            mode: 'no-cors'
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(payload)
         })
         .then(() => {
-            showToast("¡Gracias " + document.getElementById('rsvpFirstName').value + "! Asistencia confirmada ✨");
+            showToast("¡Gracias " + payload.nombre + "! Asistencia confirmada ✨");
             document.getElementById('rsvpForm').reset();
         })
         .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
