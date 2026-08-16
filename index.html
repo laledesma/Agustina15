@@ -816,7 +816,7 @@
 
     <!-- JAVASCRIPT -->
     <script>
-    // PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
+    // PEGA AQUÍ LA PRIMERA URL (APP WEB)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxH8iYpAZnNu1ucVvMlq0X5_Ep3YcCp_ckdVnCXl86yVbvxvgmQe0MDKsw6xM3QZGgn/exec";
 
     function scrollToContent() {
@@ -864,13 +864,17 @@
         formData.append('cancion', document.getElementById('songTitle').value);
         formData.append('artista', document.getElementById('artistName').value);
 
-        fetch(SCRIPT_URL, { method: 'POST', body: formData })
-            .then(() => {
-                showToast("¡Gracias " + document.getElementById('guestNameMusic').value + "! Canción enviada 🎵❄️");
-                document.getElementById('musicForm').reset();
-            })
-            .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
-            .finally(() => btn.disabled = false);
+        fetch(SCRIPT_URL, { 
+            method: 'POST', 
+            body: formData,
+            mode: 'no-cors'
+        })
+        .then(() => {
+            showToast("¡Gracias " + document.getElementById('guestNameMusic').value + "! Canción enviada 🎵❄️");
+            document.getElementById('musicForm').reset();
+        })
+        .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
+        .finally(() => btn.disabled = false);
     }
 
     // Envío de Confirmación de Asistencia a Google Sheets
@@ -884,13 +888,17 @@
         formData.append('nombre', document.getElementById('rsvpFirstName').value);
         formData.append('apellido', document.getElementById('rsvpLastName').value);
 
-        fetch(SCRIPT_URL, { method: 'POST', body: formData })
-            .then(() => {
-                showToast("¡Gracias " + document.getElementById('rsvpFirstName').value + "! Asistencia confirmada ✨");
-                document.getElementById('rsvpForm').reset();
-            })
-            .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
-            .finally(() => btn.disabled = false);
+        fetch(SCRIPT_URL, { 
+            method: 'POST', 
+            body: formData,
+            mode: 'no-cors'
+        })
+        .then(() => {
+            showToast("¡Gracias " + document.getElementById('rsvpFirstName').value + "! Asistencia confirmada ✨");
+            document.getElementById('rsvpForm').reset();
+        })
+        .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
+        .finally(() => btn.disabled = false);
     }
 
     function copyAlias() {
