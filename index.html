@@ -86,7 +86,7 @@
             pointer-events: none;
         }
 
-        /* Hero Profile Image Container (45vh de alto, ~40-50% de la pantalla) */
+        /* Hero Profile Image Container */
         .hero-profile-container {
             width: 45vh;
             height: 45vh;
@@ -109,7 +109,7 @@
             border: 3px solid var(--blanco);
         }
 
-        /* Icono Copo Cristalino Principal (Reducido a la mitad) */
+        /* Icono Copo Cristalino Principal */
         .crystal-snowflake-hero {
             width: 37px;
             height: 37px;
@@ -152,7 +152,6 @@
             letter-spacing: 3px;
         }
 
-        /* Frase inferior sin cuadro ni comillas, en itálica */
         .invitation-quote {
             max-width: 620px;
             font-size: 1.15rem;
@@ -221,7 +220,6 @@
             pointer-events: none;
         }
 
-        /* Copos Decorativos en Esquinas de los Cards */
         .card-corner-snowflake-left {
             position: absolute;
             top: -15px;
@@ -242,7 +240,6 @@
             pointer-events: none;
         }
 
-        /* Icon Container con Copo Mágico */
         .icon-container {
             width: 75px;
             height: 75px;
@@ -293,73 +290,25 @@
             height: 28px;
         }
 
-        /* CARRUSEL DE FOTOS ("Mis Momentos") */
-        .carousel-container {
-            position: relative;
-            width: 100%;
+        /* GALERÍA EN VERTICAL (UNA SOBRE OTRA) */
+        .images-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             max-width: 500px;
             margin: 20px auto 0 auto;
-            overflow: hidden;
-            border-radius: 18px;
-            box-shadow: 0 8px 20px rgba(16, 51, 107, 0.15);
-            border: 1px solid var(--color-1);
-            background: #ffffff;
+            position: relative;
             z-index: 1;
         }
 
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s ease-in-out;
+        .images-list-container img {
             width: 100%;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            box-sizing: border-border-box;
-            padding: 10px;
-        }
-
-        .carousel-slide img {
-            width: 100%;
-            height: 380px;
+            height: auto;
+            max-height: 480px;
             object-fit: cover;
-            border-radius: 12px;
-            display: block;
-        }
-
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.65);
-            color: var(--color-3);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .carousel-btn:hover {
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--color-6);
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .carousel-btn.prev {
-            left: 12px;
-        }
-
-        .carousel-btn.next {
-            right: 12px;
+            border-radius: 18px;
+            border: 1px solid var(--color-1);
+            box-shadow: 0 8px 20px rgba(16, 51, 107, 0.15);
         }
 
         /* COUNTDOWN */
@@ -406,6 +355,31 @@
             color: var(--color-3);
             font-weight: 600;
             margin-top: 25px;
+        }
+
+        /* DRESS CODE ESTILOS */
+        .dress-code-box {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background: rgba(169, 216, 226, 0.15);
+            border-radius: 16px;
+            border: 1px dashed var(--color-4);
+            display: inline-block;
+        }
+
+        .dress-code-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-3);
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .dress-code-text {
+            color: var(--color-4);
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         /* BOTONES */
@@ -586,7 +560,6 @@
             .time-box { min-width: 70px; padding: 12px 6px; }
             .time-box .number { font-size: 1.7rem; }
             .alias-code { font-size: 1.3rem; }
-            .carousel-slide img { height: 280px; }
         }
     </style>
 </head>
@@ -605,7 +578,7 @@
             <img src="img/IMG_1355.JPG" class="hero-profile-img" alt="Agustina">
         </div>
 
-        <!-- SVG COPO DE NIEVE PRINCIPAL (img/copo.svg) -->
+        <!-- SVG COPO DE NIEVE PRINCIPAL -->
         <img src="img/copo.svg" class="crystal-snowflake-hero" alt="Copo de nieve">
 
         <div class="sub-title-main">Mis 15 Años</div>
@@ -624,7 +597,7 @@
     <!-- MAIN CONTENT -->
     <div class="container" id="main-content">
 
-        <!-- CUENTA REGRESIVA (Caja 1: img/copo.svg) -->
+        <!-- CUENTA REGRESIVA -->
         <section class="section-card">
             <img src="img/copo.svg" class="card-corner-snowflake-left" alt="Copo decorativo">
             <img src="img/copo.svg" class="card-corner-snowflake-right" alt="Copo decorativo">
@@ -667,40 +640,18 @@
             <div class="line"></div>
         </div>
 
-        <!-- GALERÍA DE FOTOS DE LA CUMPLEAÑERA (Carrusel) -->
+        <!-- GALERÍA DE FOTOS (IMÁGENES UNA DEBAJO DE LA OTRA) -->
         <section class="section-card">
             <img src="img/copo.svg" class="card-corner-snowflake-left" alt="Copo decorativo">
             <img src="img/copo.svg" class="card-corner-snowflake-right" alt="Copo decorativo">
 
-           <!-- <h2 class="section-title">Mis Momentos</h2> -->
-
-            <div class="carousel-container" id="momentsCarousel">
-                <button class="carousel-btn prev" onclick="moveSlide(-1)">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <div class="carousel-track" id="carouselTrack">
-                    <div class="carousel-slide">
-                        <img src="img/IMG_0028.JPG" alt="Agustina de pequeña">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="img/IMG_0029.JPG" alt="Agustina">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="img/IMG_0030.JPG" alt="Agustina">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="img/IMG_1355.JPG" alt="Agustina">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="img/IMG_4176.JPG" alt="Agustina">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="img/IMG_4177.JPG" alt="Agustina">
-                    </div>
-                </div>
-                <button class="carousel-btn next" onclick="moveSlide(1)">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
+            <div class="images-list-container">
+                <img src="img/IMG_0028.JPG" alt="Agustina de pequeña">
+                <img src="img/IMG_0029.JPG" alt="Agustina">
+                <img src="img/IMG_0030.JPG" alt="Agustina">
+                <img src="img/IMG_1355.JPG" alt="Agustina">
+                <img src="img/IMG_4176.JPG" alt="Agustina">
+                <img src="img/IMG_4177.JPG" alt="Agustina">
             </div>
         </section>
 
@@ -711,7 +662,7 @@
             <div class="line"></div>
         </div>
 
-        <!-- UBICACIÓN (Caja 2: img/copo2.svg) -->
+        <!-- UBICACIÓN Y DRESS CODE -->
         <section class="section-card">
             <img src="img/copo2.svg" class="card-corner-snowflake-left" alt="Copo decorativo">
             <img src="img/copo2.svg" class="card-corner-snowflake-right" alt="Copo decorativo">
@@ -723,6 +674,12 @@
             <p style="font-size: 1.15rem; font-weight: 600; color: var(--color-3);">Salón La Arbolada</p>
             <p style="color: var(--color-4); margin-top: 5px;">¡Un lugar increíble nos espera para festejar juntos!</p>
             
+            <div class="dress-code-box">
+                <div class="dress-code-title"><i class="fa-solid fa-user-tie" style="margin-right: 6px;"></i> Dress Code</div>
+                <div class="dress-code-text">Preferentemente negro. Evitar tonalidades azules, celestes (o similar).</div>
+            </div>
+            <br>
+
             <a href="https://maps.google.com/?q=Salon+La+Arbolada" target="_blank" class="btn">
                 <i class="fa-solid fa-map-location-dot"></i> ¿Cómo Llegar?
             </a>
@@ -735,7 +692,7 @@
             <div class="line"></div>
         </div>
 
-        <!-- MÚSICA (Caja 3: img/copo3.svg) -->
+        <!-- MÚSICA -->
         <section class="section-card">
             <img src="img/copo3.svg" class="card-corner-snowflake-left" alt="Copo decorativo">
             <img src="img/copo3.svg" class="card-corner-snowflake-right" alt="Copo decorativo">
@@ -777,7 +734,7 @@
             <div class="line"></div>
         </div>
 
-        <!-- REGALOS / ALIAS (Caja 4: img/copo.svg) -->
+        <!-- REGALOS / ALIAS -->
         <section class="section-card">
             <img src="img/copo.svg" class="card-corner-snowflake-left" alt="Copo decorativo">
             <img src="img/copo.svg" class="card-corner-snowflake-right" alt="Copo decorativo">
@@ -806,7 +763,7 @@
             <div class="line"></div>
         </div>
 
-        <!-- CONFIRMACIÓN DE ASISTENCIA (Caja 5: img/copo2.svg) -->
+        <!-- CONFIRMACIÓN DE ASISTENCIA -->
         <section class="section-card">
             <img src="img/copo2.svg" class="card-corner-snowflake-left" alt="Copo decorativo">
             <img src="img/copo2.svg" class="card-corner-snowflake-right" alt="Copo decorativo">
@@ -892,47 +849,10 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Carrusel "Mis Momentos"
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-slide');
-        const track = document.getElementById('carouselTrack');
-        let autoSlideTimer;
-
-        function updateCarousel() {
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        function moveSlide(direction) {
-            currentSlide += direction;
-            if (currentSlide >= slides.length) {
-                currentSlide = 0;
-            } else if (currentSlide < 0) {
-                currentSlide = slides.length - 1;
-            }
-            updateCarousel();
-            resetAutoSlide();
-        }
-
-        function startAutoSlide() {
-            autoSlideTimer = setInterval(() => {
-                moveSlide(1);
-            }, 3500); // Movimiento automático hacia la izquierda (avanza siguiente imagen cada 3.5s)
-        }
-
-        function resetAutoSlide() {
-            clearInterval(autoSlideTimer);
-            startAutoSlide();
-        }
-
-        startAutoSlide();
-
         // Envío de canción a Google Forms
         function submitSongToGoogleForm(event) {
             event.preventDefault();
             const name = document.getElementById('guestNameMusic').value;
-            const song = document.getElementById('songTitle').value;
-            const artist = document.getElementById('artistName').value;
-
             showToast("¡Gracias " + name + "! Canción enviada a la playlist 🎵❄️");
             document.getElementById('musicForm').reset();
         }
@@ -941,8 +861,6 @@
         function submitRSVPToGoogleForm(event) {
             event.preventDefault();
             const firstName = document.getElementById('rsvpFirstName').value;
-            const lastName = document.getElementById('rsvpLastName').value;
-
             showToast("¡Gracias " + firstName + "! Tu asistencia ha sido confirmada ✨");
             document.getElementById('rsvpForm').reset();
         }
