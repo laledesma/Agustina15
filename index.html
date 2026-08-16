@@ -816,72 +816,100 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        function scrollToContent() {
-            document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
+    // PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
+    const SCRIPT_URL = "https://script.google.com/macros/s/TU_SCRIPT_ID_AQUI/exec";
+
+    function scrollToContent() {
+        document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Cuenta Regresiva
+    const eventDate = new Date('October 16, 2026 21:00:00').getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        if (distance < 0) {
+            document.getElementById('days').innerText = "00";
+            document.getElementById('hours').innerText = "00";
+            document.getElementById('minutes').innerText = "00";
+            document.getElementById('seconds').innerText = "00";
+            return;
         }
 
-        // Cuenta Regresiva
-        const eventDate = new Date('October 16, 2026 21:00:00').getTime();
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = eventDate - now;
+        document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+        document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+        document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+    }
 
-            if (distance < 0) {
-                document.getElementById('days').innerText = "00";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('minutes').innerText = "00";
-                document.getElementById('seconds').innerText = "00";
-                return;
-            }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // Envío de canción a Google Sheets
+    function submitSongToGoogleForm(event) {
+        event.preventDefault();
+        const btn = event.target.querySelector('button');
+        btn.disabled = true;
 
-            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
-        }
+        const formData = new FormData();
+        formData.append('sheet', 'Música');
+        formData.append('nombre', document.getElementById('guestNameMusic').value);
+        formData.append('cancion', document.getElementById('songTitle').value);
+        formData.append('artista', document.getElementById('artistName').value);
 
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        fetch(SCRIPT_URL, { method: 'POST', body: formData })
+            .then(() => {
+                showToast("¡Gracias " + document.getElementById('guestNameMusic').value + "! Canción enviada 🎵❄️");
+                document.getElementById('musicForm').reset();
+            })
+            .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
+            .finally(() => btn.disabled = false);
+    }
 
-        // Envío de canción a Google Forms
-        function submitSongToGoogleForm(event) {
-            event.preventDefault();
-            const name = document.getElementById('guestNameMusic').value;
-            showToast("¡Gracias " + name + "! Canción enviada a la playlist 🎵❄️");
-            document.getElementById('musicForm').reset();
-        }
+    // Envío de Confirmación de Asistencia a Google Sheets
+    function submitRSVPToGoogleForm(event) {
+        event.preventDefault();
+        const btn = event.target.querySelector('button');
+        btn.disabled = true;
 
-        // Envío de Confirmación de Asistencia
-        function submitRSVPToGoogleForm(event) {
-            event.preventDefault();
-            const firstName = document.getElementById('rsvpFirstName').value;
-            showToast("¡Gracias " + firstName + "! Tu asistencia ha sido confirmada ✨");
-            document.getElementById('rsvpForm').reset();
-        }
+        const formData = new FormData();
+        formData.append('sheet', 'Asistencia');
+        formData.append('nombre', document.getElementById('rsvpFirstName').value);
+        formData.append('apellido', document.getElementById('rsvpLastName').value);
 
-        function copyAlias() {
-            const aliasText = document.getElementById('alias-text').innerText;
-            navigator.clipboard.writeText(aliasText).then(() => {
-                showToast("¡Alias copiado al portapapeles! ❄️");
-            }).catch(err => {
-                showToast("Copiado: " + aliasText);
-            });
-        }
+        fetch(SCRIPT_URL, { method: 'POST', body: formData })
+            .then(() => {
+                showToast("¡Gracias " + document.getElementById('rsvpFirstName').value + "! Asistencia confirmada ✨");
+                document.getElementById('rsvpForm').reset();
+            })
+            .catch(() => showToast("Error al enviar. Inténtalo de nuevo."))
+            .finally(() => btn.disabled = false);
+    }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3500);
-        }
-    </script>
+    function copyAlias() {
+        const aliasText = document.getElementById('alias-text').innerText;
+        navigator.clipboard.writeText(aliasText).then(() => {
+            showToast("¡Alias copiado al portapapeles! ❄️");
+        }).catch(err => {
+            showToast("Copiado: " + aliasText);
+        });
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.innerText = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3500);
+    }
+    </script>   
 </body>
 </html>
